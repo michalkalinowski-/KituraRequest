@@ -11,9 +11,9 @@ class Request {
   var request: ClientRequest?
   var response: ClientResponse?
   var data: NSData?
-  var error: RequestError?
+  var error: ErrorProtocol?
   
-  typealias ResponseArguments = (request: ClientRequest?, response: ClientResponse?, data: NSData?, error:RequestError?)
+  typealias ResponseArguments = (request: ClientRequest?, response: ClientResponse?, data: NSData?, error:ErrorProtocol?)
   typealias CompletionHandler = ResponseArguments -> Void
   
   init(method: RequestMethod,
@@ -41,7 +41,7 @@ class Request {
       self.request = request
     } catch {
       self.request = nil
-      self.error = error as! RequestError
+      self.error = error
     }
   }
   
@@ -51,6 +51,7 @@ class Request {
       return
     }
     
+    // TODO: This returns data that is not UTF8 encoded - fix it
     let data = NSMutableData()
     do {
       try response.read(into: data)
