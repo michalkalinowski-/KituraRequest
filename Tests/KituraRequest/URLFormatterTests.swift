@@ -20,25 +20,34 @@ class URLFormatterTests: XCTestCase {
   func testRequestWithInvalidReturnsError() {
     let invalidURL = "http://💩.com"
     let testRequest = Request(method: .GET, invalidURL)
-    XCTAssertEqual(testRequest.error, NetworkingError.InvalidURL)
+    XCTAssertEqual(testRequest.error, RequestError.InvalidURL)
   }
   
   func testRequestWithURLWithoutSchemeReturnsError() {
     let URLWithoutScheme = "apple.com"
     let testRequest = Request(method: .GET, URLWithoutScheme)
-    XCTAssertEqual(testRequest.error, NetworkingError.NoSchemeProvided)
+    XCTAssertEqual(testRequest.error, RequestError.NoSchemeProvided)
   }
   
   func testRequestWithNoHostReturnsError() {
     let URLWithoutHost = "http://"
     let testRequest = Request(method: .GET, URLWithoutHost)
-    XCTAssertEqual(testRequest.error, NetworkingError.NoHostProvided)
+    XCTAssertEqual(testRequest.error, RequestError.NoHostProvided)
   }
   
   func testRequestWithNoHostAndQueryReturnsError() {
     let URLWithoutHost = "http://?asd=asd"
     let testRequest = Request(method: .GET, URLWithoutHost)
-    XCTAssertEqual(testRequest.error, NetworkingError.NoHostProvided)
+    XCTAssertEqual(testRequest.error, RequestError.NoHostProvided)
+  }
+  
+  // TODO: ClientRequest always appends / after host, 
+  // Open a PR to KituraNET
+  func testValidURLCreatesValidClientRequest() {
+    let validURL = "https://66o.tech"
+    let testRequest = Request(method: .GET, validURL)
+    
+    XCTAssertEqual(testRequest.request?.url, validURL)
   }
   
 }
