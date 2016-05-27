@@ -18,7 +18,7 @@ enum ParameterEncoding {
   
   func encode(_ request: inout NSMutableURLRequest, parameters: [String: AnyObject]?) throws {
     
-    guard let parameters = parameters else {
+    guard let parameters = parameters where !parameters.isEmpty else {
       return
     }
     

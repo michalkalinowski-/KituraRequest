@@ -20,25 +20,25 @@ class URLFormatterTests: XCTestCase {
   func testRequestWithInvalidReturnsError() {
     let invalidURL = "http://💩.com"
     let testRequest = Request(method: .GET, invalidURL)
-    XCTAssertEqual(testRequest.error, RequestError.InvalidURL)
+    XCTAssertEqual(testRequest.error as? RequestError, RequestError.InvalidURL)
   }
   
   func testRequestWithURLWithoutSchemeReturnsError() {
     let URLWithoutScheme = "apple.com"
     let testRequest = Request(method: .GET, URLWithoutScheme)
-    XCTAssertEqual(testRequest.error, RequestError.NoSchemeProvided)
+    XCTAssertEqual(testRequest.error as? RequestError, RequestError.NoSchemeProvided)
   }
   
   func testRequestWithNoHostReturnsError() {
     let URLWithoutHost = "http://"
     let testRequest = Request(method: .GET, URLWithoutHost)
-    XCTAssertEqual(testRequest.error, RequestError.NoHostProvided)
+    XCTAssertEqual(testRequest.error as? RequestError, RequestError.NoHostProvided)
   }
   
   func testRequestWithNoHostAndQueryReturnsError() {
     let URLWithoutHost = "http://?asd=asd"
     let testRequest = Request(method: .GET, URLWithoutHost)
-    XCTAssertEqual(testRequest.error, RequestError.NoHostProvided)
+    XCTAssertEqual(testRequest.error as? RequestError, RequestError.NoHostProvided)
   }
   
   // TODO: ClientRequest always appends / after host, 
