@@ -11,6 +11,11 @@ import Foundation
 // Heavily inspired by Alamofire ParameterEncoding
 // https://github.com/Alamofire/Alamofire/blob/master/Source/ParameterEncoding.swift
 
+enum ParameterEncodingError: ErrorProtocol {
+  case CouldNotCreateComponentsFromURL
+  case CouldNotCreateURLFromComponents
+}
+
 enum ParameterEncoding {
   case URL
   case JSON
@@ -23,6 +28,17 @@ enum ParameterEncoding {
     }
     
     switch self {
+    case .URL:
+      guard let components = NSURLComponents(url: request.url!, resolvingAgainstBaseURL: false) else {
+        throw ParameterEncodingError.CouldNotCreateComponentsFromURL // this should never happen
+      }
+      components.query = NSDictionary(dictionary: parameters).toQueryString()
+      
+      guard let newURL = components.url else {
+        throw ParameterEncodingError.CouldNotCreateComponentsFromURL // this should never happen
+      }
+      request.url = newURL
+      
     case .JSON:
       let options = NSJSONWritingOptions()
       let data = try NSJSONSerialization.data(withJSONObject: parameters, options: options)
@@ -32,5 +48,37 @@ enum ParameterEncoding {
     default:
       throw RequestError.NotImplemented
     }
+  }
+}
+
+private extension NSDictionary {
+  func toQueryString() -> String {
+    typealias QueryComponents = [(String, String)]
+    
+    func getQueryComponent(_ key: String, _ value: AnyObject?) -> QueryComponents {
+      var queryComponents: QueryComponents = []
+      
+      switch value {
+      case let d as [String: AnyObject]:
+        for (k, v) in d {
+          queryComponents += getQueryComponent("\(key)[\(k)]", v)
+        }
+      case let a as [AnyObject]:
+        for value in a {
+          queryComponents += getQueryComponent(key + "[]", value)
+        }
+      default:
+        queryComponents.append((key, "\(value)"))
+      }
+      return queryComponents
+    }
+
+    
+    var query: [(String,String)] = []
+    for element in self {
+      query += getQueryComponent(element.0 as! String, element.1)
+    }
+    
+    return (query.map { "\($0)=\($1)" } as [String]).joined(separator: "&")
   }
 }
