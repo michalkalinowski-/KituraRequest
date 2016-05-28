@@ -11,6 +11,7 @@ TODO before the module is usable:
 - [ ] Add synchronus interface
 - [ ] Refactor current async-looking interface to be really async
 - [ ] Write tests to check if resulting ClientRequest is properly initialised
+- [ ] Make tests run on Linux
 - [ ] Switch back to depend on IBM Kitura-net
 - [ ] Add licence 
 
