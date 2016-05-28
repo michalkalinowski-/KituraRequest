@@ -55,7 +55,7 @@ private extension NSDictionary {
   func toQueryString() -> String {
     typealias QueryComponents = [(String, String)]
     
-    func getQueryComponent(_ key: String, _ value: AnyObject?) -> QueryComponents {
+    func getQueryComponent(_ key: String, _ value: AnyObject) -> QueryComponents {
       var queryComponents: QueryComponents = []
       
       switch value {
@@ -73,8 +73,8 @@ private extension NSDictionary {
       return queryComponents
     }
 
-    
     var query: [(String,String)] = []
+    
     for element in self {
       query += getQueryComponent(element.0 as! String, element.1)
     }

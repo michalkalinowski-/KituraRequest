@@ -6,7 +6,7 @@ KituraRequest
 A module for sending HTTP requests in [IBM Kitura](https://github.com/IBM-Swift/Kitura) based applications.
 
 TODO before the module is usable:
-- [ ] Add URL parameter encoding
+- [x] Add URL parameter encoding
 - [x] Add JSON parameter encoding 
 - [ ] Add synchronus interface
 - [ ] Refactor current async-looking interface to be really async
