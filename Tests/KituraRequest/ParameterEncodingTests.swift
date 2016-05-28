@@ -117,8 +117,4 @@ class ParameterEncodingTests: XCTestCase {
       XCTFail()
     }
   }
-  
-  func dataToString(_ data: NSData?) -> NSString? {
-    return data != nil ? NSString(data: data!, encoding: NSUTF8StringEncoding) : nil
-  }
 }

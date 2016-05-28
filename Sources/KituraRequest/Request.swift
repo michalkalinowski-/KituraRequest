@@ -27,14 +27,18 @@ class Request {
       options.append(.schema("")) // so that ClientRequest doesn't apend http
       options.append(.method(method.rawValue)) // set method of request
       
-      let urlRequest = try formatURL(URL)
-      // TODO: encode parameters
-      options.append(.hostname(urlRequest.url!.absoluteString)) // safe force unwrap here
+      var urlRequest = try formatURL(URL)
+      try encoding.encode(&urlRequest, parameters: parameters)
+      options.append(.hostname(urlRequest.url!.absoluteString)) // safe to force unwrap here
       
       // Create request
       let request = HTTP.request(options) {
         response in
         self.response = response
+      }
+      
+      if let body = urlRequest.httpBody {
+        request.write(from: body)
       }
       
       request.end()
