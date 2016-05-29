@@ -35,5 +35,12 @@ class E2ETests: XCTestCase {
     }
     XCTAssertTrue(true)
   }
+}
 
+extension E2ETests {
+  static var allTests : [(String, (E2ETests) -> () throws -> Void)] {
+    return [
+             ("testRequestReturnsData", testRequestReturnsData)
+    ]
+  }
 }

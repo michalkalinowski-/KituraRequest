@@ -19,15 +19,12 @@
 //  OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import XCTest
-import KituraNet
 
 @testable import KituraRequest
 
-class RequestTests: XCTestCase {
-}
-
-extension RequestTests {
-  static var allTests : [(String, (RequestTests) -> () throws -> Void)] {
-    return []
-  }
-}
+var tests = [XCTestCaseEntry]()
+tests += ParameterEncodingTests.allTests()
+tests += RequestTests.allTests()
+tests += URLFormatterTests.allTests()
+tests += E2ETests.allTests()
+XCTMain(tests)

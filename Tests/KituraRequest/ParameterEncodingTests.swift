@@ -130,3 +130,22 @@ class ParameterEncodingTests: XCTestCase {
     }
   }
 }
+
+extension ParameterEncodingTests {
+  static var allTests : [(String, (ParameterEncodingTests) -> () throws -> Void)] {
+    return [
+             ("testJSONParameterEncodingWhenNilPassedAsParameters", testJSONParameterEncodingWhenNilPassedAsParameters),
+             ("testJSONParameterEncodingWhenEmptyPassed", testJSONParameterEncodingWhenEmptyPassed),
+             ("testJSONParameterEncodingSetsHeaders", testJSONParameterEncodingSetsHeaders),
+             ("testJSONParametersEncodingSetsBody", testJSONParametersEncodingSetsBody),
+             ("testURLParametersEncodingWithNilParameters", testURLParametersEncodingWithNilParameters),
+             ("testURLParametersEncodingWithEmptyParameters",
+              testURLParametersEncodingWithEmptyParameters),
+             ("testURLParametersEncodingWithSimpleParameters",
+              testURLParametersEncodingWithSimpleParameters),
+             ("testURLParametersEncodingWithArray",testURLParametersEncodingWithArray),
+             ("testURLParametersEncodingWithDictionary", testURLParametersEncodingWithDictionary),
+             ("testURLParametersEncodingWithArrayNestedInDict", testURLParametersEncodingWithArrayNestedInDict)
+    ]
+  }
+}

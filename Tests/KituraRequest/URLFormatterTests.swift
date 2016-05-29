@@ -59,5 +59,16 @@ class URLFormatterTests: XCTestCase {
     
     XCTAssertEqual(testRequest.request?.url, validURL)
   }
-  
+}
+
+extension URLFormatterTests {
+  static var allTests : [(String, (URLFormatterTests) -> () throws -> Void)] {
+    return [
+             ("testRequestWithInvalidReturnsError", testRequestWithInvalidReturnsError),
+             ("testRequestWithURLWithoutSchemeReturnsError", testRequestWithURLWithoutSchemeReturnsError),
+             ("testRequestWithNoHostReturnsError", testRequestWithNoHostReturnsError),
+             ("testRequestWithNoHostAndQueryReturnsError", testRequestWithNoHostAndQueryReturnsError),
+             ("testValidURLCreatesValidClientRequest", testValidURLCreatesValidClientRequest)
+    ]
+  }
 }
