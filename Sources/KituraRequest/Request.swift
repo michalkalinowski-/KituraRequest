@@ -18,8 +18,8 @@ class Request {
   
   init(method: RequestMethod,
        _ URL: String,
-       parameters: [String: AnyObject]? = nil, // not implemented
-       encoding: ParameterEncoding = .URL,     // not implemented
+       parameters: [String: AnyObject]? = nil,
+       encoding: ParameterEncoding = .URL,
        headers: [String: String]? = nil) {
     
     do {
@@ -57,6 +57,7 @@ class Request {
     }
     
     // TODO: This returns data that is not UTF8 encoded - fix it
+    // try String(data: bodyData, encoding: NSUTF8StringEncoding)
     let data = NSMutableData()
     do {
       try response.read(into: data)

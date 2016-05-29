@@ -1,15 +1,12 @@
 //
-//  File.swift
+//  ParameterEncoding.swift
 //  KituraRequest
-//
-//  Created by Michał Kalinowski on 26/05/16.
+//  Original work Copyright (c) 2014-2016 Alamofire Software Foundation (http://alamofire.org/)
+//  Modified work Copyright (c) 26/05/16 Michał Kalinowski
 //
 //
 
 import Foundation
-
-// Heavily inspired by Alamofire ParameterEncoding
-// https://github.com/Alamofire/Alamofire/blob/master/Source/ParameterEncoding.swift
 
 enum ParameterEncodingError: ErrorProtocol {
   case CouldNotCreateComponentsFromURL

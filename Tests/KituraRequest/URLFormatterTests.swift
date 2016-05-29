@@ -41,8 +41,6 @@ class URLFormatterTests: XCTestCase {
     XCTAssertEqual(testRequest.error as? RequestError, RequestError.NoHostProvided)
   }
   
-  // TODO: ClientRequest always appends / after host, 
-  // Open a PR to KituraNET
   func testValidURLCreatesValidClientRequest() {
     let validURL = "https://66o.tech"
     let testRequest = Request(method: .GET, validURL)
