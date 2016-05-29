@@ -13,5 +13,5 @@ TODO before the module is usable:
 - [ ] Write tests to check if resulting ClientRequest is properly initialised
 - [ ] Make tests run on Linux
 - [ ] Switch back to depend on IBM Kitura-net
-- [ ] Add licence 
+- [x] Add licence 
 
