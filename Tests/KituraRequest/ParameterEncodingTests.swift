@@ -176,7 +176,7 @@ class ParameterEncodingTests: XCTestCase {
 }
 
 extension ParameterEncodingTests {
-  static var allTests : [(String, (ParameterEncodingTests) -> () throws -> Void)] {
+  static var allTests : [(String, ParameterEncodingTests -> () throws -> Void)] {
     return [
              ("testJSONParameterEncodingWhenNilPassedAsParameters", testJSONParameterEncodingWhenNilPassedAsParameters),
              ("testJSONParameterEncodingWhenEmptyPassed", testJSONParameterEncodingWhenEmptyPassed),

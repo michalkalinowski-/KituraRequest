@@ -63,7 +63,7 @@ class URLFormatterTests: XCTestCase {
 }
 
 extension URLFormatterTests {
-  static var allTests : [(String, (URLFormatterTests) -> () throws -> Void)] {
+  static var allTests : [(String, URLFormatterTests -> () throws -> Void)] {
     return [
              ("testRequestWithInvalidReturnsError", testRequestWithInvalidReturnsError),
              ("testRequestWithURLWithoutSchemeReturnsError", testRequestWithURLWithoutSchemeReturnsError),
