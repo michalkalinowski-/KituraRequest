@@ -40,19 +40,26 @@ enum ParameterEncoding {
     
     switch self {
     case .URL:
-      guard let components = NSURLComponents(url: request.url!, resolvingAgainstBaseURL: false) else {
+      guard let components = NSURLComponents.safeInit(URL: request.url!, resolvingAgainstBaseURL: false) else {
         throw ParameterEncodingError.CouldNotCreateComponentsFromURL // this should never happen
       }
-      components.query = NSDictionary(dictionary: parameters).toQueryString()
       
-      guard let newURL = components.url else {
+      components.query = getQueryComponents(fromDictionary: parameters)
+      
+      guard let newURL = components.safeGetURL() else {
         throw ParameterEncodingError.CouldNotCreateComponentsFromURL // this should never happen
       }
       request.url = newURL
       
     case .JSON:
       let options = NSJSONWritingOptions()
-      let data = try NSJSONSerialization.data(withJSONObject: parameters, options: options)
+      // need to convert to NSDictionary as Dictionary(struct) is not AnyObject(instance of class only)
+      #if os(Linux)
+        let safe_parameters = parameters._bridgeToObject() // don't try to print!!!
+      #else
+        let safe_parameters = parameters as NSDictionary
+      #endif
+      let data = try NSJSONSerialization.data(withJSONObject: safe_parameters, options: options)
       request.httpBody = data
       // set content type to application/json
       request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -62,32 +69,52 @@ enum ParameterEncoding {
   }
 }
 
-private extension NSDictionary {
-  func toQueryString() -> String {
-    typealias QueryComponents = [(String, String)]
+extension ParameterEncoding {
+  typealias QueryComponents = [(String, String)]
+  
+  private func getQueryComponent(_ key: String, _ value: AnyObject) -> QueryComponents {
+    var queryComponents: QueryComponents = []
     
-    func getQueryComponent(_ key: String, _ value: AnyObject) -> QueryComponents {
-      var queryComponents: QueryComponents = []
-      
-      switch value {
-      case let d as [String: AnyObject]:
-        for (k, v) in d {
-          queryComponents += getQueryComponent("\(key)[\(k)]", v)
-        }
-      case let a as [AnyObject]:
-        for value in a {
-          queryComponents += getQueryComponent(key + "[]", value)
-        }
-      default:
-        queryComponents.append((key, "\(value)"))
+    switch value {
+    case let d as [String: AnyObject]:
+      for (k, v) in d {
+        queryComponents += getQueryComponent("\(key)[\(k)]", v)
       }
-      return queryComponents
+    case let d as NSDictionary:
+    #if os(Linux)
+      let convertedD = d.bridge() // [NSObject : AnyObject]
+      for (k, v) in convertedD {
+        if let kk = k as? NSString {
+          queryComponents += getQueryComponent("\(key)[\(kk.bridge())]", v)
+        } // else consider throw or something
+      }
+    #else
+      break
+    #endif
+    case let a as [AnyObject]:
+      for value in a {
+        queryComponents += getQueryComponent(key + "[]", value)
+      }
+    
+    case let a as NSArray:
+    #if os(Linux)
+      for value in a.bridge() {
+        queryComponents += getQueryComponent(key + "[]", value)
+      }
+    #else
+      break
+    #endif
+    default:
+      queryComponents.append((key, "\(value)"))
     }
-
+    return queryComponents
+  }
+  
+  func getQueryComponents(fromDictionary dict: [String: AnyObject]) -> String {
     var query: [(String,String)] = []
     
-    for element in self {
-      query += getQueryComponent(element.0 as! String, element.1)
+    for element in dict {
+      query += getQueryComponent(element.0, element.1)
     }
     
     return (query.map { "\($0)=\($1)" } as [String]).joined(separator: "&")

@@ -23,4 +23,5 @@ enum RequestError: ErrorProtocol {
   case NoSchemeProvided
   case NoHostProvided
   case NotImplemented
+  case ParameterCanNotBeEncoded
 }

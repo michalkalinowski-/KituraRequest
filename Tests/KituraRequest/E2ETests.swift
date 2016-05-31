@@ -19,6 +19,7 @@
 //  OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import XCTest
+import Foundation
 @testable import KituraRequest
 
 class E2ETests: XCTestCase {

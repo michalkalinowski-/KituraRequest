@@ -49,6 +49,7 @@ class Request {
       options.append(.method(method.rawValue)) // set method of request
       
       var urlRequest = try formatURL(URL)
+    
       try encoding.encode(&urlRequest, parameters: parameters)
       options.append(.hostname(urlRequest.url!.absoluteString)) // safe to force unwrap here
       
