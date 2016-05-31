@@ -101,10 +101,16 @@ extension Request {
       throw RequestError.InvalidURL
     }
     
-    // why scheme is not optional!??!
-    guard validURL.scheme != "" else {
-      throw RequestError.NoSchemeProvided
-    }
+    #if os(Linux)
+      guard validURL.scheme != nil else {
+        throw RequestError.NoSchemeProvided
+      }
+    #else
+      // why scheme is not optional on OSX!??!
+      guard validURL.scheme != "" else {
+        throw RequestError.NoSchemeProvided
+      }
+    #endif
     
     guard validURL.host != nil else {
       throw RequestError.NoHostProvided
