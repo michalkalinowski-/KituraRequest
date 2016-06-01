@@ -32,20 +32,17 @@ API of KituraRequest should feel familiar as it closely maps the one of [Alamofi
 To create a request object simply call
 
 ```swift
-KituraRequest.request(method: .GET, "https://google.com"].response {
-  request, response, data, error in
-  // do something with data
-}
+KituraRequest.request(method: .GET, "https://httpbin.org/get"]
 ```
 
 #### Request parameters and parameters encoding
 You can also create a request with parameters by passing `[String: AnyObject]` dictionary together with encoding method
 
 ```swift
-var testRequest = KituraRequest.request(method: .POST,
-                                        "https://httpbin.org/post",
-                                        parameters: ["foo":"bar"],
-                                        encoding: .JSON)
+KituraRequest.request(method: .POST,
+                      "https://httpbin.org/post",
+                      parameters: ["foo":"bar"],
+                      encoding: .JSON)
 ```
 
 Currently `.URL` and `.JSON` encoding is supported. `.URL` encodes parameters as URLs query while the latter converts parameters dictionary to JSON and appends it to request's body. When encoding parameters as `.JSON` appropriate Content-Type header is set.
@@ -62,6 +59,13 @@ KituraRequest.request(method: .GET,
 
 #### Handling response
 Currently there is only one method that you can call to get back the requests response and it returns `NSData`.
+
+```swift
+KituraRequest.request(method: .GET, "https://google.com"].response {
+  request, response, data, error in
+  // do something with data
+}
+```
 
 ## License
 KituraRequest is released under the MIT license. For details see LICENSE.txt
