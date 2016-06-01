@@ -22,26 +22,26 @@
 import Foundation
 import KituraNet
 
-enum RequestMethod: String {
+public enum RequestMethod: String {
   case CONNECT, DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, TRACE
 }
 
 /// Wrapper around NSURLRequest
 /// TODO: Make an asynchronus version
-class Request {
+public class Request {
   var request: ClientRequest?
   var response: ClientResponse?
   var data: NSData?
   var error: ErrorProtocol?
   
-  typealias ResponseArguments = (request: ClientRequest?, response: ClientResponse?, data: NSData?, error:ErrorProtocol?)
-  typealias CompletionHandler = ResponseArguments -> Void
+  public typealias ResponseArguments = (request: ClientRequest?, response: ClientResponse?, data: NSData?, error:ErrorProtocol?)
+  public typealias CompletionHandler = ResponseArguments -> Void
   
-  init(method: RequestMethod,
-       _ URL: String,
-       parameters: [String: AnyObject]? = nil,
-       encoding: ParameterEncoding = .URL,
-       headers: [String: String]? = nil) {
+  public init(method: RequestMethod,
+             _ URL: String,
+             parameters: [String: AnyObject]? = nil,
+             encoding: ParameterEncoding = .URL,
+             headers: [String: String]? = nil) {
     
     do {
       var options: [ClientRequestOptions] = []
@@ -75,7 +75,7 @@ class Request {
     }
   }
   
-  func response(_ completionHandler: CompletionHandler) {
+  public func response(_ completionHandler: CompletionHandler) {
     guard let response = response else {
       completionHandler((request, nil, nil, error))
       return

@@ -20,14 +20,14 @@
 
 import Foundation
 
-class KituraRequest {
+public class KituraRequest {
 
   #if os(Linux)
-  static func request(method: RequestMethod,
-                      _ URL: String,
-                      parameters: [String: Any]? = nil,
-                      encoding: ParameterEncoding = .URL,
-                      headers: [String: String]? = nil) -> Request {
+  public static func request(method: RequestMethod,
+                            _ URL: String,
+                            parameters: [String: Any]? = nil,
+                            encoding: ParameterEncoding = .URL,
+                            headers: [String: String]? = nil) -> Request {
   
     let parameters = convertValuesToAnyObject(parameters)
     
@@ -40,11 +40,11 @@ class KituraRequest {
     return request
   }
   #else
-  static func request(method: RequestMethod,
-                      _ URL: String,
-                      parameters: [String: AnyObject]? = nil,
-                      encoding: ParameterEncoding = .URL,
-                      headers: [String: String]? = nil) -> Request {
+  public static func request(method: RequestMethod,
+                            _ URL: String,
+                            parameters: [String: AnyObject]? = nil,
+                            encoding: ParameterEncoding = .URL,
+                            headers: [String: String]? = nil) -> Request {
     
     let request =  Request(method: method,
                            URL,

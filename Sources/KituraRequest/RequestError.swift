@@ -18,7 +18,7 @@
 //  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 //  OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-enum RequestError: ErrorProtocol {
+public enum RequestError: ErrorProtocol {
   case InvalidURL
   case NoSchemeProvided
   case NoHostProvided

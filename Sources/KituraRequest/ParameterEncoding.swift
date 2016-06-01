@@ -22,12 +22,12 @@
 
 import Foundation
 
-enum ParameterEncodingError: ErrorProtocol {
+public enum ParameterEncodingError: ErrorProtocol {
   case CouldNotCreateComponentsFromURL
   case CouldNotCreateURLFromComponents
 }
 
-enum ParameterEncoding {
+public enum ParameterEncoding {
   case URL
   case JSON
   case Custom
