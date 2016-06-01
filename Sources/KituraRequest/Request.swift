@@ -48,6 +48,11 @@ class Request {
       options.append(.schema("")) // so that ClientRequest doesn't apend http
       options.append(.method(method.rawValue)) // set method of request
       
+      // headers
+      if let headers = headers {
+        options.append(.headers(headers))
+      }
+      
       var urlRequest = try formatURL(URL)
     
       try encoding.encode(&urlRequest, parameters: parameters)
@@ -63,8 +68,6 @@ class Request {
         request.write(from: body)
       }
       
-      request.end()
-      
       self.request = request
     } catch {
       self.request = nil
@@ -78,8 +81,6 @@ class Request {
       return
     }
     
-    // TODO: This returns data that is not UTF8 encoded - fix it
-    // try String(data: bodyData, encoding: NSUTF8StringEncoding)
     let data = NSMutableData()
     do {
       try response.read(into: data)
@@ -87,6 +88,10 @@ class Request {
     } catch {
       print(error)
     }
+  }
+  
+  func submit() {
+    request?.end()
   }
 }
 

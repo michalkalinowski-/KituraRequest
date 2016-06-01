@@ -25,10 +25,34 @@ import KituraNet
 @testable import KituraRequest
 
 class RequestTests: XCTestCase {
+  
+  var testRequest = KituraRequest.request(method: .POST,
+                                          "https://google.com",
+                                          parameters: ["asd":"asd"],
+                                          encoding: .URL,
+                                          headers: ["User-Agent":"Kitura-Server"]
+  )
+  
+  func testRequestAssignsClientRequestURL() {
+    XCTAssertEqual(testRequest.request?.url, "https://google.com?asd=asd")
+  }
+  
+  func testRequestAssignClientRequestMethod() {
+    XCTAssertEqual(testRequest.request?.method, "POST")
+  }
+  
+  func testRequestAssignsClientRequestHeaders() {
+    if let headers = testRequest.request?.headers {
+      XCTAssertEqual(headers, ["User-Agent":"Kitura-Server"])
+    } else {
+      XCTFail()
+    }
+  }
 }
 
 extension RequestTests {
   static var allTests : [(String, RequestTests -> () throws -> Void)] {
-    return []
+    return [("testRequestAssignsClientRequestURL", testRequestAssignsClientRequestURL),
+    ("testRequestAssignClientRequestMethod", testRequestAssignClientRequestMethod)]
   }
 }

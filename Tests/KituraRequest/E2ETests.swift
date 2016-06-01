@@ -25,16 +25,15 @@ import Foundation
 class E2ETests: XCTestCase {
   
   func testRequestReturnsData() {
-    _ = Request(method: .GET, "https://httpbin.org/html")
+    KituraRequest.request(method: .GET, "https://httpbin.org/html")
       .response {
         _, _, data, _ in
-        if let data = data {
-          print(String(data: data, encoding: NSUTF8StringEncoding))
+        if data != nil {
+          XCTAssertTrue(true)
         } else {
           XCTFail("No data returned")
         }
     }
-    XCTAssertTrue(true)
   }
 }
 
