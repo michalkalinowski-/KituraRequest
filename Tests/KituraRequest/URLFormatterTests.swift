@@ -19,6 +19,7 @@
 //  OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import XCTest
+import Foundation
 import KituraNet
 
 @testable import KituraRequest
@@ -62,7 +63,7 @@ class URLFormatterTests: XCTestCase {
 }
 
 extension URLFormatterTests {
-  static var allTests : [(String, (URLFormatterTests) -> () throws -> Void)] {
+  static var allTests : [(String, URLFormatterTests -> () throws -> Void)] {
     return [
              ("testRequestWithInvalidReturnsError", testRequestWithInvalidReturnsError),
              ("testRequestWithURLWithoutSchemeReturnsError", testRequestWithURLWithoutSchemeReturnsError),

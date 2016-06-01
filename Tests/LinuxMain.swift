@@ -20,11 +20,11 @@
 
 import XCTest
 
-@testable import KituraRequest
+@testable import KituraRequestTestSuite
 
-var tests = [XCTestCaseEntry]()
-tests += ParameterEncodingTests.allTests()
-tests += RequestTests.allTests()
-tests += URLFormatterTests.allTests()
-tests += E2ETests.allTests()
-XCTMain(tests)
+XCTMain([
+  testCase(ParameterEncodingTests.allTests),
+  testCase(RequestTests.allTests),
+  testCase(URLFormatterTests.allTests),
+  testCase(E2ETests.allTests)
+])

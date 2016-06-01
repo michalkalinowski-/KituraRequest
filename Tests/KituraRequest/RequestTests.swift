@@ -19,6 +19,7 @@
 //  OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import XCTest
+import Foundation
 import KituraNet
 
 @testable import KituraRequest
@@ -27,7 +28,7 @@ class RequestTests: XCTestCase {
 }
 
 extension RequestTests {
-  static var allTests : [(String, (RequestTests) -> () throws -> Void)] {
+  static var allTests : [(String, RequestTests -> () throws -> Void)] {
     return []
   }
 }
