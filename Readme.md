@@ -13,7 +13,7 @@ TODO:
 - [x] Add synchronus interface
 - [ ] Add async interface
 - [x] Write instructions
-- [ ] Switch back to depend on IBM Kitura-net
+- [x] Switch back to depend on IBM Kitura-net
  
 
 ## Instalation
