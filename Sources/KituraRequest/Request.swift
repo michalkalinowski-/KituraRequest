@@ -44,7 +44,7 @@ public class Request {
              headers: [String: String]? = nil) {
     
     do {
-      var options: [ClientRequestOptions] = []
+      var options: [ClientRequest.Options] = []
       options.append(.schema("")) // so that ClientRequest doesn't apend http
       options.append(.method(method.rawValue)) // set method of request
       
