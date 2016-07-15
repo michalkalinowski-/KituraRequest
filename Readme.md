@@ -68,4 +68,4 @@ KituraRequest.request(method: .GET, "https://google.com"].response {
 ```
 
 ## License
-KituraRequest is released under the MIT license. For details see LICENSE.txt
+This library is licensed under Apache 2.0. For details see license.txt
