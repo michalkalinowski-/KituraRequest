@@ -47,14 +47,14 @@ public enum ParameterEncoding {
       request.url = newURL
       
     case .JSON:
-      let options = NSJSONWritingOptions()
+      let options = JSONSerialization.WritingOptions()
       // need to convert to NSDictionary as Dictionary(struct) is not AnyObject(instance of class only)
       #if os(Linux)
         let safe_parameters = parameters._bridgeToObject() // don't try to print!!!
       #else
         let safe_parameters = parameters as NSDictionary
       #endif
-      let data = try NSJSONSerialization.data(withJSONObject: safe_parameters, options: options)
+      let data = try JSONSerialization.data(withJSONObject: safe_parameters, options: options)
       request.httpBody = data
       // set content type to application/json
       request.setValue("application/json", forHTTPHeaderField: "Content-Type")

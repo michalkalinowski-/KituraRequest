@@ -31,7 +31,7 @@ public class Request {
   var error: ErrorProtocol?
   
   public typealias ResponseArguments = (request: ClientRequest?, response: ClientResponse?, data: NSData?, error:ErrorProtocol?)
-  public typealias CompletionHandler = ResponseArguments -> Void
+  public typealias CompletionHandler = (ResponseArguments) -> Void
   
   public init(method: RequestMethod,
              _ URL: String,
@@ -52,7 +52,7 @@ public class Request {
       var urlRequest = try formatURL(URL)
     
       try encoding.encode(&urlRequest, parameters: parameters)
-      options.append(.hostname(urlRequest.url!.absoluteString)) // safe to force unwrap here
+      options.append(.hostname(urlRequest.url!.absoluteString!)) // safe to force unwrap here
       
       // Create request
       let request = HTTP.request(options) {
@@ -79,7 +79,7 @@ public class Request {
     
     let data = NSMutableData()
     do {
-      try response.read(into: data)
+      _ = try response.read(into: data)
       completionHandler((request, response, data, error))
     } catch {
       print(error)
@@ -92,13 +92,13 @@ public class Request {
 }
 
 extension Request {
-  func formatURL(_ URL: String) throws -> NSMutableURLRequest {
+  func formatURL(_ url: String) throws -> NSMutableURLRequest {
     // Regex to test validity of url:
     // _^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?$_iuS
     // also check RFC 1808
 
     // or use NSURL:
-    guard let validURL = NSURL(string: URL) else {
+    guard let validURL = URL(string: url) else {
       throw RequestError.InvalidURL
     }
     

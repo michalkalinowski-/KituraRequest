@@ -35,7 +35,7 @@ extension NSMutableURLRequest {
 }
 
 extension NSURLComponents {
-  class func safeInit(URL url: NSURL, resolvingAgainstBaseURL resolve: Bool) -> NSURLComponents? {
+  class func safeInit(URL url: URL, resolvingAgainstBaseURL resolve: Bool) -> NSURLComponents? {
     #if os(Linux)
       return NSURLComponents(URL: url, resolvingAgainstBaseURL: resolve)
     #else
@@ -43,7 +43,7 @@ extension NSURLComponents {
     #endif
   }
   
-  func safeGetURL() -> NSURL? {
+  func safeGetURL() -> URL? {
     #if os(Linux)
       return self.URL
     #else
