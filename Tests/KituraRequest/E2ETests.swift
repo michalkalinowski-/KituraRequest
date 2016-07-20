@@ -34,7 +34,7 @@ class E2ETests: XCTestCase {
 }
 
 extension E2ETests {
-  static var allTests : [(String, E2ETests -> () throws -> Void)] {
+  static var allTests : [(String, (E2ETests) -> () throws -> Void)] {
     return [
              ("testRequestReturnsData", testRequestReturnsData)
     ]

@@ -19,7 +19,7 @@ import Foundation
 @testable import KituraRequest
 
 class ParameterEncodingTests: XCTestCase {
-  let url = NSURL(string: "https://66o.tech")!
+  let url = URL(string: "https://66o.tech")!
   
   // JSON encoding
   
@@ -172,7 +172,7 @@ class ParameterEncodingTests: XCTestCase {
 }
 
 extension ParameterEncodingTests {
-  static var allTests : [(String, ParameterEncodingTests -> () throws -> Void)] {
+  static var allTests : [(String, (ParameterEncodingTests) -> () throws -> Void)] {
     return [
              ("testJSONParameterEncodingWhenNilPassedAsParameters", testJSONParameterEncodingWhenNilPassedAsParameters),
              ("testJSONParameterEncodingWhenEmptyPassed", testJSONParameterEncodingWhenEmptyPassed),

@@ -47,7 +47,7 @@ class RequestTests: XCTestCase {
 }
 
 extension RequestTests {
-  static var allTests : [(String, RequestTests -> () throws -> Void)] {
+  static var allTests : [(String, (RequestTests) -> () throws -> Void)] {
     return [("testRequestAssignsClientRequestURL", testRequestAssignsClientRequestURL),
     ("testRequestAssignClientRequestMethod", testRequestAssignClientRequestMethod)]
   }
