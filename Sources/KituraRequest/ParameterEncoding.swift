@@ -17,7 +17,7 @@
 
 import Foundation
 
-public enum ParameterEncodingError: ErrorProtocol {
+public enum ParameterEncodingError: Swift.Error {
   case CouldNotCreateComponentsFromURL
   case CouldNotCreateURLFromComponents
 }

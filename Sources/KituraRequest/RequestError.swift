@@ -14,7 +14,7 @@
  * limitations under the License.
  **/
 
-public enum RequestError: ErrorProtocol {
+public enum RequestError: Swift.Error {
   case InvalidURL
   case NoSchemeProvided
   case NoHostProvided

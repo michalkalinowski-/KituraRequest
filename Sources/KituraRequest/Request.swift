@@ -28,9 +28,9 @@ public class Request {
   var request: ClientRequest?
   var response: ClientResponse?
   var data: NSData?
-  var error: ErrorProtocol?
+  var error: Swift.Error?
   
-  public typealias ResponseArguments = (request: ClientRequest?, response: ClientResponse?, data: NSData?, error:ErrorProtocol?)
+  public typealias ResponseArguments = (request: ClientRequest?, response: ClientResponse?, data: NSData?, error:Swift.Error?)
   public typealias CompletionHandler = (ResponseArguments) -> Void
   
   public init(method: RequestMethod,
