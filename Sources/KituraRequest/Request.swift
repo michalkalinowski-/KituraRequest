@@ -52,7 +52,7 @@ public class Request {
       var urlRequest = try formatURL(URL)
     
       try encoding.encode(&urlRequest, parameters: parameters)
-      options.append(.hostname(urlRequest.url!.absoluteString!)) // safe to force unwrap here
+      options.append(.hostname(urlRequest.url!.absoluteString)) // safe to force unwrap here
       
       // Create request
       let request = HTTP.request(options) {
@@ -77,9 +77,9 @@ public class Request {
       return
     }
     
-    let data = NSMutableData()
+    var data = Data()
     do {
-      _ = try response.read(into: data)
+      _ = try response.read(into: &data)
       completionHandler((request, response, data, error))
     } catch {
       print(error)
