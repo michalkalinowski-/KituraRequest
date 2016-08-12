@@ -39,7 +39,7 @@ class RequestTests: XCTestCase {
   
   func testRequestAssignsClientRequestHeaders() {
     if let headers = testRequest.request?.headers {
-      XCTAssertEqual(headers, ["User-Agent":"Kitura-Server"])
+      XCTAssertEqual(headers["User-Agent"], "Kitura-Server")
     } else {
       XCTFail()
     }
