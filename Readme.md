@@ -1,6 +1,10 @@
 KituraRequest
 -------------
 
+## Moved to Kitura organization
+https://github.com/IBM-Swift/Kitura-Request
+
+
 **Warning: This is work in progress**
 
 A module for sending HTTP requests in [IBM Kitura](https://github.com/IBM-Swift/Kitura) based applications. It wraps KituraNet `ClientRequest` class and exposes a familiar interface known from Alamofire.
